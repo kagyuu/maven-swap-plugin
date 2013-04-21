@@ -1,4 +1,4 @@
-package jp.hondo.maven.swap.plugin;
+package jp.hondoh.maven.swap.plugin;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,6 +17,8 @@ import org.apache.maven.plugin.MojoFailureException;
  * swap files
  *
  * @goal swapfiles
+ * @phase process-test-classes
+ * @execute phase="process-test-classes"
  * @author Atsushi HONDOH (kagyuu@hondou.homedns.org)
  */
 public class SwapMojo extends AbstractMojo {
@@ -32,26 +34,21 @@ public class SwapMojo extends AbstractMojo {
      * @required
      */
     private String to;
+        
+    /**
+     * @parameter expression="${ifProp}"
+     */
+    private String ifProp = null;
     
     /**
-     * @parameter expression="${verbose}" default-value="false"
+     * @parameter expression="${ifEnv}"
      */
-    private boolean verbose;
-    
-    /**
-     * @parameter expression="${ifProp}" default-value="null"
-     */
-    private String ifProp;
-    
-    /**
-     * @parameter expression="${ifEnv}" default-value="null"
-     */
-    private String ifEnv;
+    private String ifEnv = null;
 
     /**
-     * @parameter expression="${is}" default-value="null"
+     * @parameter expression="${is}"
      */
-    private String is;
+    private String is = null;
     
     /**
      * Execute.
@@ -60,28 +57,28 @@ public class SwapMojo extends AbstractMojo {
      * @throws MojoFailureException unpredictable error
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        sysout(from + "\n <-> " + to);
+        getLog().info(from + "\n <-> " + to);
         
         if (null != ifEnv) {
             String env = System.getenv(ifEnv);
-            sysout("ENV " + ifEnv + " = " + env);
+            getLog().info("ENV " + ifEnv + " = " + env);
             if (!env.matches(is.trim())) {
-                sysout(ifEnv + " not match " + is + ". Do nothing.");
+                getLog().info(ifEnv + " not match " + is + ". Do nothing.");
                 return;
             }
         }
         
         if (null != ifProp) {
             String env = System.getProperty(ifProp);
-            sysout("PROP " + ifProp + " = " + env);
+            getLog().info("PROP " + ifProp + " = " + env);
             if (!env.matches(is.trim())) {
-                sysout(ifProp + " not match " + is + ". Do nothing.");
+                getLog().info(ifProp + " doesn't not match \"" + is + "\". Do nothing.");
                 return;
             }
         }
 
         try {
-            sysout("swap start");
+            getLog().info("swap start");
             
             File toFile = new File(to);
             File fromFile = new File(from);
@@ -96,10 +93,10 @@ public class SwapMojo extends AbstractMojo {
             writeAll(toFile, fromContents);
 
         } catch (IOException ex) {
-            System.err.println(ex.getMessage());
+            getLog().error(ex.getMessage());
             throw new MojoExecutionException("swap failed.", ex);
         } catch (Throwable th) {
-            System.err.println(th.getMessage());
+            getLog().error(th.getMessage());
             throw new MojoFailureException("swap failed", th);
         }
     }
@@ -154,12 +151,6 @@ public class SwapMojo extends AbstractMojo {
                     ex = null;
                 }
             }
-        }
-    }
-    
-    private void sysout(final String msg) {
-        if (verbose) {
-            System.out.println(msg);
         }
     }
 }

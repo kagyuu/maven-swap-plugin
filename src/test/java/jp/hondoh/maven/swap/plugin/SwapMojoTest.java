@@ -1,4 +1,4 @@
-package jp.hondo.maven.swap.plugin;
+package jp.hondoh.maven.swap.plugin;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -9,15 +9,14 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>jp.hondo</groupId>
-                <artifactId>maven-swap-plugin</artifactId>
+                <groupId>jp.hondoh</groupId>
+                <artifactId>hondoh-swap-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
                     <ifProp>os.name</ifProp>
                     <is>OS360</is>
                     <from>${basedir}/target/classes/META-INF/persistence.xml</from>
                     <to>${basedir}/target/test-classes/META-INF/persistence.xml</to>
-                    <verbose>true</verbose>
                 </configuration>
             </plugin>
         </plugins>

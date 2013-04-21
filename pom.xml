@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>jp.hondo</groupId>
-    <artifactId>maven-swap-plugin</artifactId>
+    <groupId>jp.hondoh</groupId>
+    <artifactId>hondoh-swap-plugin</artifactId>
     <version>1.0</version>
     <packaging>maven-plugin</packaging>
 
-    <name>maven-swap-plugin</name>
+    <name>hondoh-swap-plugin</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -67,7 +67,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.14</version>
                 <configuration>
-                    <forkMode>never</forkMode>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>        
         </plugins>
