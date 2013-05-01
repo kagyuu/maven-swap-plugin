@@ -9,8 +9,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>jp.hondoh</groupId>
-                <artifactId>hondoh-swap-plugin</artifactId>
+                <groupId>org.homedns.hondou</groupId>
+                <artifactId>swap-maven-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
                     <ifProp>os.name</ifProp>
