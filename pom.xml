@@ -27,7 +27,7 @@
 
     <groupId>org.homedns.hondou</groupId>
     <artifactId>swap-maven-plugin</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>swap-maven-plugin</name>
